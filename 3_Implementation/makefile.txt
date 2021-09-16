@@ -1,4 +1,4 @@
-PROJ_NAME = Temperature_Monitoring_System
+PROJ_NAME = Car_Seat_Heater
 
 BUILD_DIR = Build
 
@@ -6,26 +6,28 @@ BUILD_DIR = Build
 SRC = main.c\
 src/Activity1.c\
 src/Activity2.c\
-src/Activity3.c
+src/Activity3.c\
+
+
 
 # All header file paths
 INC = -I inc
 
-# Configuring for Both Windows and Linux Operating System
-ifdef OS	# Windwos OS
+# Find out the OS and configure the variables accordingly
+ifdef OS	# All configurations for Windwos OS
 # Correct the path based on OS
    FixPath = $(subst /,\,$1)
-# AVR Compiler
+# Name of the compiler used
    CC = avr-gcc.exe
-# .elf to .hex
+# Name of the elf to hex file converter used
    AVR_OBJ_CPY = avr-objcopy.exe
-else # Linux OS
+else #All configurations for Linux OS
    ifeq ($(shell uname), Linux)
-# Correct the path based on Linux
+# Correct the path based on OS
       FixPath = $1				
-# AVR Compiler
+# Name of the compiler used
 	  CC = avr-gcc
-# N.elf to .hex
+# Name of the elf to hex file converter used
 	  AVR_OBJ_CPY = avr-objcopy 
    endif
 endif

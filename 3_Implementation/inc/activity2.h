@@ -2,17 +2,18 @@
 #define ACTIVITY2_H_INCLUDED
 
 #include <avr/io.h>			
-#include <util/delay.h>			
+#include <util/delay.h>		
 
-#define LCD_DIRECTION  DDRB			
-#define PORT_B PORTB			
-#define LCD_RS PB2				
-#define LCD_EN PB3 				
+#define LCD_Dir  DDRB			
+#define LCD_Port PORTB			
+#define RS PB2				
+#define EN PB3 				
 
-void LCD_CMD( unsigned char command );
-void LCD_CHAR_WISE( unsigned char ch );
-void LCD_INITIALIZATION(void);
-void LCD_DISPLAY (char *temperature_value);
-void CLEAR_LCD();
+void LCD_Command( unsigned char cmnd );
+void LCD_Char( unsigned char data );
+void lcd_initialization (void);
+void LCD_String (char *str);
+void LCD_String_xy (char row, char pos, char *str);
+void lcd_off();
 
-#endif 
+#endif // ACTIVITY2_H_INCLUDED

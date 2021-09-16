@@ -3,43 +3,43 @@
 #include "activity1.h"
 #include "activity2.h"
 #include"activity3.h"
-int main(void)
+int main()
 {
-    SEAT_CHECKING(); 
-    ADC_INITIALIZATION(); 
-    TIMER_INITIALIZATION(); 
-    LCD_INITIALIZATION(); 
+    led();
+    InitADC();
+    timer_initialization();
+    lcd_initialization();			
 
-    uint16_t read;
+    uint16_t temp_var;
 
 	while(1)
     {
-        if(SEAT_CHECK)
+        if(seat_sense)
         {
-            PORTD|=(1<<PD2);
-            if(HEATER_ON){
-                LED_ON;
+            PORTD|=(1<<PD0);
+            if(heater_set){
+                led_set;
                 _delay_ms(200);
-                CLEAR_LCD();
-                read=SENSE_ADC(0);
-                PWM_OUPUT(read);
+                lcd_off();
+                temp_var=ReadADC(5);
+                pwm_out(temp_var);
 
             }
             else
                 {
-                    LED_OFF;
+                    led_clear;
                      _delay_ms(200);
-                    HEATER_OFF;
+                    heater_clear;
                     _delay_ms(200);
-                    CLEAR_LCD();
+                    lcd_off();
                 }
         }
         else{
-            LED_OFF;
+            led_clear;
             _delay_ms(200);
-            HEATER_OFF;
+            heater_clear;
             _delay_ms(200);
-            CLEAR_LCD();
+            lcd_off();
         }
     }
     return 0;

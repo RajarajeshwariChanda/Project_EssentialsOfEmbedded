@@ -1,8 +1,8 @@
 #include <avr/io.h>
 #include<util/delay.h>
-#include "Activity1.h"
-#include "Activity2.h"
-#include"Activity3.h"
+#include "activity1.h"
+#include "activity2.h"
+#include"activity3.h"
 int main(void)
 {
     SEAT_CHECKING(); 

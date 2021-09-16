@@ -1,6 +1,5 @@
 #ifndef ACTIVITY3_H_INCLUDED
 #define ACTIVITY3_H_INCLUDED
-
 #include<avr/io.h>
 #include "util/delay.h"
 
@@ -8,9 +7,9 @@
 #define TIMER_PRESCALER_AS_64 TCCR1B|=(1<<WGM12)|(1<<CS11)|(1<<CS10)
 #define PWM_OUTPUT_PIN DDRB|=(1<<PB1)
 
-uint16_t SENSE_ADC(uint8_t channel);
-void ADC_INITIALIZATION();
-void TIMER_INITIALIZATION(void);
-void PWM_OUPUT(uint16_t ADC_READING);
+uint16_t ReadADC(uint8_t ch);
+void InitADC();
+void timer_initialization(void);
+void pwm_out(uint16_t ADC_READING);
 
-#endif 
+#endif // ACTIVITY3_H_INCLUDED

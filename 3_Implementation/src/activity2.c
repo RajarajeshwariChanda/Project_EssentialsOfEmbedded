@@ -1,65 +1,73 @@
-#include "Activity2.h"
+#include "activity2.h"
 
-void LCD_CMD( unsigned char command )
+void LCD_Command( unsigned char cmnd )
 {
-	PORT_B = (PORT_B & 0x0F) | (command & 0xF0); 
-	PORT_B &= ~ (1<<LCD_RS); 
-	PORT_B |= (1<<LCD_EN); 
-	_delay_us(5);
-	PORT_B &= ~ (1<<LCD_EN);
+	LCD_Port = (LCD_Port & 0x0F) | (cmnd & 0xF0); 
+	LCD_Port &= ~ (1<<RS);		
+	LCD_Port |= (1<<EN);		
+	_delay_us(1);
+	LCD_Port &= ~ (1<<EN);
 
-	_delay_us(250);
+	_delay_us(200);
 
-	PORT_B = (PORT_B & 0x0F) | (command << 4); 
-	PORT_B |= (1<<LCD_EN);
-	_delay_us(5);
-	PORT_B &= ~ (1<<LCD_EN);
-	_delay_ms(50);
+	LCD_Port = (LCD_Port & 0x0F) | (cmnd << 4);  
+	_delay_us(1);
+	LCD_Port &= ~ (1<<EN);
+	_delay_ms(2);
 }
 
-void LCD_CHAR_WISE( unsigned char ch )
+
+void LCD_Char( unsigned char data )
 {
-	PORT_B = (PORT_B & 0x0F) | (ch & 0xF0); 
-	PORT_B |= (1<<LCD_RS);		
-	PORT_B|= (1<<LCD_EN);
-	_delay_us(5);
-	PORT_B &= ~ (1<<LCD_EN);
+	LCD_Port = (LCD_Port & 0x0F) | (data & 0xF0); 
+	LCD_Port |= (1<<RS);		
+	LCD_Port|= (1<<EN);
+	_delay_us(1);
+	LCD_Port &= ~ (1<<EN);
 
-	_delay_us(250);
+	_delay_us(200);
 
-	PORT_B = (PORT_B & 0x0F) | (ch << 4); 
-	PORT_B |= (1<<LCD_EN);
-	_delay_us(5);
-	PORT_B &= ~ (1<<LCD_EN);
-	_delay_ms(50);
+	LCD_Port = (LCD_Port & 0x0F) | (data << 4); 
+	LCD_Port |= (1<<EN);
+	_delay_us(1);
+	LCD_Port &= ~ (1<<EN);
+	_delay_ms(2);
 }
 
-void LCD_INITIALIZATION(void)
+void lcd_initialization (void)			
 {
-	LCD_DIRECTION = 0xFF; 
-	_delay_ms(50);
+	LCD_Dir = 0xFF;			
+	_delay_ms(20);			
 
-	LCD_CMD(0x02);	
-	LCD_CMD(0x28);  
-	LCD_CMD(0x0c);  
-	LCD_CMD(0x06);  
-	LCD_CMD(0x01); 
-	_delay_ms(5);
+	LCD_Command(0x02);		
+	LCD_Command(0x28);              
+	LCD_Command(0x0c);              
+	LCD_Command(0x06);              
+	LCD_Command(0x01);              
+	_delay_ms(2);
 }
 
-void LCD_DISPLAY (char *temperature_value)
+void LCD_String (char *str)		
 {
-	int Index;
-	for(Index=0;temperature_value[Index]!=0;Index++)
+	int i;
+	for(i=0;str[i]!=0;i++)		
 	{
-		LCD_CHAR_WISE(temperature_value[Index]);
+		LCD_Char (str[i]);
 	}
 }
 
-
-void CLEAR_LCD()
+void LCD_String_xy (char row, char pos, char *str)	
 {
-	LCD_CMD (0x01);
-	_delay_ms(50);
-	LCD_CMD (0x80);	
+	if (row == 0 && pos<16)
+	LCD_Command((pos & 0x0F)|0x80);	
+	else if (row == 1 && pos<16)
+	LCD_Command((pos & 0x0F)|0xC0);	
+	LCD_String(str);		
+}
+
+void lcd_off()
+{
+	LCD_Command (0x01);		
+	_delay_ms(20);
+	LCD_Command (0x80);		
 }

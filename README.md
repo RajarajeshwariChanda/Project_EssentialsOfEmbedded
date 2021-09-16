@@ -1,0 +1,2 @@
+# Project_EssentialsOfEmbedded
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1640d2ee15b144f6993154a3eb0816ca)](https://app.codacy.com/gh/RajarajeshwariChanda/Project_EssentialsOfEmbedded?utm_source=github.com&utm_medium=referral&utm_content=RajarajeshwariChanda/Project_EssentialsOfEmbedded&utm_campaign=Badge_Grade_Settings)
